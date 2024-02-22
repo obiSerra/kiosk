@@ -1,0 +1,10 @@
+[Unit]
+Description=kiosk_service
+After=network-online.target
+
+[Service]
+ExecStart=/home/pi/Develop/kiosk/run.sh
+User=pi
+
+[Install]
+WantedBy=multi-user.target

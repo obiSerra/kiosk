@@ -1,0 +1,60 @@
+---
+- hosts: all
+  become: true
+  pre_tasks:
+    - name: Update apt
+      package:
+        upgrade: yes
+        update_cache: yes
+        cache_valid_time: 86400 #One day
+
+  tasks:
+    - name: Install the Apache2 package
+      apt:
+        name:
+          - apache2
+          - unclutter
+        state: latest
+        update_cache: yes
+
+    - name: Copy the files to the server
+      copy: 
+        src: "{{ item.src }}" 
+        dest: "{{ item.dest }}"
+        owner: root
+        group: root
+        mode: '0644'
+      loop:
+        - src: ../src/index.html
+          dest: /var/www/html/index.html
+        - src: ../src/main.css
+          dest: /var/www/html/main.css
+        - src: ../src/main.js
+          dest: /var/www/html/main.js
+        - src: kiosk.service
+          dest: /etc/systemd/system/kiosk.service
+
+    - name: Copy the files to the server
+      copy: 
+        src: "{{ item.src }}" 
+        dest: "{{ item.dest }}"
+        owner: pi
+        group: pi
+        mode: '0755'
+      loop:
+        - src: run.sh
+          dest: /home/pi/Develop/kiosk/run.sh
+
+    - name: Make sure group wheel is not in the sudoers configuration
+      lineinfile:
+        path: /etc/default/unclutter
+        regexp: '^EXTRA_OPTS'
+        line: EXTRA_OPTS="-idle 0 -display :0"
+
+    - name: Start kiosk service, if not started
+      systemd_service:
+        name: kiosk.service
+        enabled: true
+        state: restarted
+        daemon_reload: true
+      

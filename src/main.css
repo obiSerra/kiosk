@@ -1,0 +1,39 @@
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.container {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 60px;
+  text-align: center;
+}
+
+.days {
+  font-size: 100px;
+}
+.weeks {
+  font-size: 40px;
+}
+.seconds {
+  font-size: 20px;
+}
+
+strong {
+  color: tomato;
+}
+
+p {
+  margin: 0;
+}

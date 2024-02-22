@@ -1,0 +1,3 @@
+node_modules
+.vault_key
+hosts_password.yml
