@@ -17,6 +17,10 @@
         state: latest
         update_cache: yes
 
+    - name: Change the timezone to Europe/Rome
+      shell:
+        cmd: timedatectl set-timezone Europe/Rome
+
     - name: Copy the files to the server
       copy: 
         src: "{{ item.src }}" 

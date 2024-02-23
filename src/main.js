@@ -1,49 +1,55 @@
 (() => {
 
     const data = {
-        "title": "Roseto",
-        "date": "04/25/2024",
-
+        "line": "A Roseto Mancano",
+        "date": "04/25/2024 06:00:00",
     }
 
     const giornoGiorni = (n) => n === 1 ? "giorno" : "giorni";
     const settimanaSettimane = (n) => n === 1 ? "settimana" : "settimane";
 
 
+
     function run() {
         const today = new Date();
+
+
         const date2 = new Date(data.date);
 
         const diffTime = date2 - today
-        const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+
+        const diffSeconds = Math.floor(diffTime / 1000);
+
+        const diffMinutes = Math.floor(diffSeconds / 60);
+        const diffHours = Math.floor(diffMinutes / 60);
+        const diffDays = Math.floor(diffHours / 24);
+
         const diffWeeks = Math.floor(diffDays / 7);
         const remWeeks = diffDays % 7;
 
-        const diffSeconds = Math.ceil(diffTime / 1000);
-        const diffHours = Math.ceil(diffTime / (1000 * 60 * 60));
-        if (diffTime < 0) {
-            document.querySelector(".days").innerHTML = `<strong>${data.title}</strong> è ARRIVATO!`;
-            return;
+        try {
+            document.querySelector(".current-time").innerHTML = new Date().toString().replace(/GMT.*$/, '');
+        } catch (e) {
+            console.error(e);
         }
 
-        document.querySelector(".init").innerHTML = "Mancano";
-        if (diffHours <= 1) {
-            document.querySelector(".days").innerHTML = `<strong> Manca meno di un'ora a ${data.title}`;
-        }
-        else if (diffHours < 24) {
-            document.querySelector(".days").innerHTML = `<strong>${diffHours}</strong> ore a ${data.title}`;
-        } else {
-            document.querySelector(".days").innerHTML = `<strong>${diffDays}</strong> ${giornoGiorni(diffDays)} a ${data.title}`;
-            if (diffWeeks > 0) {
-                const rem = remWeeks !== 0 ? `e <strong>${remWeeks}</strong> ${giornoGiorni(remWeeks)}` : "";
-                document.querySelector(".weeks").innerHTML = `ovvero <strong>${diffWeeks}</strong> ${settimanaSettimane(diffWeeks)} ${rem}`;
-            }
+        try {
+            document.querySelector(".init").innerHTML = `<span class='f-xxl'>${data.line}</span>`;
+            document.querySelector(".days").innerHTML = `<span class='f-xxxl'><span class="tomato">${diffDays}</span> Giorni</span> `;
+            document.querySelector(".time").innerHTML = `<span class='f-l'><span class="tomato">${diffHours % 24}</span> Ore </span>
+            <span class='f-l'><span class="tomato">${diffMinutes % 60}</span> Minuti </span>
+            <span class='f-l'><span class="tomato">${(diffSeconds % 60)}</span> secondi </span>`;
+        } catch (e) {
+            console.error(e);
         }
 
-        document.querySelector(".seconds").innerHTML = `precisamente <strong>${diffSeconds.toLocaleString('it-IT')}</strong> secondi`;
+        if (diffWeeks > 0) {
+            const rem = remWeeks !== 0 ? `e <span class="tomato">${remWeeks}</span> ${giornoGiorni(remWeeks)}` : "";
+            document.querySelector(".weeks").innerHTML = `<div class="f-s"> ovvero <span class="tomato">${diffWeeks}</span> ${settimanaSettimane(diffWeeks)} ${rem}</div>`;
+        }
 
     }
     run();
-    setInterval(run, 1000);
+    setInterval(run, 500);
 
 })()
