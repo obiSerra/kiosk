@@ -35,6 +35,8 @@
           dest: /var/www/html/main.css
         - src: ../src/main.js
           dest: /var/www/html/main.js
+        - src: ../src/data.js
+          dest: /var/www/html/data.js
         - src: kiosk.service
           dest: /etc/systemd/system/kiosk.service
 

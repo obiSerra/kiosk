@@ -1,0 +1,1 @@
+window.kioskData = [{ 'line': 'A Roseto mancano', 'date': '04/25/2024 06:00:00' }]  

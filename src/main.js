@@ -1,13 +1,17 @@
-(() => {
+((kioskData) => {
 
-    const data = {
-        "line": "A Roseto Mancano",
-        "date": "04/25/2024 06:00:00",
-    }
+
 
     const giornoGiorni = (n) => n === 1 ? "giorno" : "giorni";
     const settimanaSettimane = (n) => n === 1 ? "settimana" : "settimane";
 
+    if (!kioskData) {
+        console.error("No data provided");
+        return;
+    }
+
+    // TODO - select data based on the current date
+    const data = kioskData[0]
 
 
     function run() {
@@ -52,4 +56,4 @@
     run();
     setInterval(run, 500);
 
-})()
+})(window.kioskData)
