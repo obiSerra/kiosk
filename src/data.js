@@ -1,1 +1,3 @@
-window.kioskData = [{ 'line': 'A Roseto mancano', 'date': '04/25/2024 06:00:00' }]  
+window.kioskData = [
+    { 'line': 'Al Concerto dei NOFX', 'date': '05/11/2024 15:00:00' }
+]  

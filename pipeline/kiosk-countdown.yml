@@ -51,7 +51,7 @@
         - src: run.sh
           dest: /home/pi/Develop/kiosk/run.sh
 
-    - name: Make sure group wheel is not in the sudoers configuration
+    - name: Disable idle display
       lineinfile:
         path: /etc/default/unclutter
         regexp: '^EXTRA_OPTS'
