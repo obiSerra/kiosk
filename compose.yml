@@ -1,0 +1,13 @@
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: timeout_db
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+    ports:
+      - "5432:5432"
+  web:
+    build: ./countdown-timer
+    ports:
+      - "5000:5000"
